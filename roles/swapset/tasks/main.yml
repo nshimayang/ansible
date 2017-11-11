@@ -1,2 +1,28 @@
----
-# tasks file for role_name
+    - name: Existence check of "/swap" file
+      stat:
+        path: "{{  swap_file_path  }}"
+      register: check_swapfile
+
+    - name: create the file to be used for swap
+      command: dd if=/dev/zero of={{ swap_file_path }} bs={{ ansible_memtotal_mb }} count=1536
+      register: write_swapfile
+      when: not check_swapfile.stat.exists
+
+    - name: Make Swap File
+      command: mkswap {{ swap_file_path }}
+      register: create_swapfile
+      when: write_swapfile.changed
+
+    - name: Attach Swap File
+      command: swapon {{ swap_file_path }}
+      when: create_swapfile.changed
+
+    - name: Mount swap
+      mount:
+        name: swap
+        src: '{{ swap_file_path }}'
+        fstype: swap
+        opts: defaults
+        passno: '0'
+        dump: '0'
+        state: present
