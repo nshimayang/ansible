@@ -3,3 +3,5 @@
   become_user: root
 
   roles:
+    - role: install_opetools
+      tags: install_opetools
