@@ -1,2 +1,13 @@
----
-# tasks file for role_name
+    - name: install Operation Tools
+      yum : name={{ item }} state=latest
+      with_items:
+       - vim
+       - dstat
+       - nmap
+       - lsof
+       - tree
+       - zip
+       - unzip
+       - wget
+       - mail
+       - git
