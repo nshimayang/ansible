@@ -1,2 +1,23 @@
----
-# tasks file for role_name
+- name: Existence check of "/data" directory
+  stat: path="{{ mount_point }}"
+  register: fm
+
+- block:
+  - name: mkfs
+    filesystem:
+      fstype: "{{ file_system }}"
+      dev: "{{ device }}"
+
+  - name: mkdir "{{ mount_point }}"
+    file:
+      path: "{{ mount_point }}"
+      state: directory
+
+  - name: mount "{{ mount_point }}"
+    mount:
+      name: "{{ mount_point }}"
+      src: "{{ device }}"
+      fstype: "{{ file_system }}"
+      opts: defaults
+      state: mounted
+  when: not fm.stat.exists
