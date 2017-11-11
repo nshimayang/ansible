@@ -3,3 +3,5 @@
   become_user: root
 
   roles:
+    - role: root_prompt
+      tags: root_prompt

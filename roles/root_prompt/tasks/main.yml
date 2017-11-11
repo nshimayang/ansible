@@ -1,2 +1,5 @@
----
-# tasks file for role_name
+    - name: add PS1 to /root/.bashrc
+      lineinfile:
+        dest='/root/.bashrc'
+        state=present
+        line="export PS1='\[\033[01;36;44m\][\u@\h:\W \\t]\\$\[\033[00m\] '"
