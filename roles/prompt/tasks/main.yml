@@ -1,2 +1,9 @@
----
-# tasks file for role_name
+    - name: add HISTSIZE/HISTTIMEFORMAT/PS1 to /etc/profile
+      lineinfile:
+        dest='/etc/profile'
+        state=present
+        line={{ item }}
+      with_items:
+        - 'HISTSIZE=10000'
+        - 'HISTTIMEFORMAT="%Y/%m/%d %T "'
+        - 'PS1="\[\e[1;32m\][\u@\h:\W]\$\[\e[00m\] "'
