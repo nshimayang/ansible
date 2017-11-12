@@ -3,3 +3,5 @@
   become_user: root
 
   roles:
+    - role: fail2ban
+      tags: fail2ban

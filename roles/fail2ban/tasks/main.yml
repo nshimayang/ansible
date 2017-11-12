@@ -1,2 +1,20 @@
----
-# tasks file for role_name
+    - name: fail2ban install
+      yum :
+        name={{ item }}
+        state=latest
+      with_items:
+       - fail2ban
+
+    - name: start fail2ban
+      service:
+        name=fail2ban
+        enabled=yes
+        state=started
+
+#    - name: Setiing jail.local
+#      copy:
+#        src=jail.local
+#        dest=/etc/fail2ban/jail.local
+#        owner=root
+#        group=root
+#        mode=0644
