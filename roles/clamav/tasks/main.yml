@@ -1,2 +1,10 @@
----
-# tasks file for role_name
+    - name: clamav install
+      yum : 
+        name={{ item }}
+        state=latest
+      with_items:
+       - clamav
+       - clamav
+       - clamav-lib
+       - clamav-filesystem
+       - clamav-data
