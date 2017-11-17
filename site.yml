@@ -3,3 +3,5 @@
   become_user: root
 
   roles:
+    - role: systems_manager_agent
+      tags: systems_manager_agent
